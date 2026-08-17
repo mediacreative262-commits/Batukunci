@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Batu Kunci — Seed Data Awal</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="shell">
+  <div id="login-screen">
+    <div class="login-card">
+      <svg class="arch-mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path class="arch-body" d="M6 42V22C6 11 14 4 24 4C34 4 42 11 42 22V42H33V22C33 16 29 13 24 13C19 13 15 16 15 22V42H6Z"/>
+        <path class="arch-key" d="M20 4H28L26 12H22L20 4Z"/>
+      </svg>
+      <span class="brand-word">Seed Data Awal</span>
+      <p class="login-sub">Sekali jalan doang, buat isi 6 profil anggota + 4 akun Drive ke Firestore.</p>
+
+      <div class="field">
+        <label for="seed-name">Login sebagai (akun yang udah lo buat di Firebase Auth)</label>
+        <select id="seed-name"></select>
+      </div>
+      <div class="field">
+        <label for="seed-password">Password akun itu</label>
+        <input type="password" id="seed-password">
+      </div>
+      <button class="btn btn-primary" onclick="runSeed()">Jalankan Seed</button>
+      <div id="seed-log" style="margin-top:16px; font-size:.85rem; color:var(--ink-soft); text-align:left;"></div>
+      <p class="login-note">Aman dijalanin berkali-kali (gak bakal dobel data) — tapi normalnya cukup sekali di awal.</p>
+    </div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore-compat.js"></script>
+<script>
+/* GANTI config ini SAMA PERSIS kayak yang di app.js / view.js */
+const firebaseConfig = {
+  apiKey: "AIzaSyBoAiVpGp_QBa_FQYOQefflFwqKv8Pbry0",
+  authDomain: "mediacreativeut262b.firebaseapp.com",
+  projectId: "mediacreativeut262b",
+  storageBucket: "mediacreativeut262b.firebasestorage.app",
+  messagingSenderId: "263094318099",
+  appId: "1:263094318099:web:363c0cd981b82060cebbe6",
+};
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+const SEED_USERS = [
+  { id: 'risasifafadillah-mdc.26.2',    name: 'Risa Sifa Fadillah' },
+  { id: 'muhammadfadlimustafidin-mdc.26.2',    name: 'Muhammad Fadli Mustafidin' },
+  { id: 'videlaalodia-mdc.26.2', name: 'Videla Alodia' },
+  { id: 'adelfinaayusyafitri-mdc.26.2', name: 'Adelfina Ayu Syafitri' },
+  { id: 'yolapuspitar-mdc.26.2', name: 'Yola Puspita R' },
+  { id: 'nisarastari-mdc.26.2', name: 'Nisar Astari' },
+];
+
+const SEED_DRIVE = [
+  { id: 'servermdc1', email: 'servermdc1@gmail.com', kelompok: 'Aktif', persen: 0 },
+  { id: 'servermdc2', email: 'servermdc2@gmail.com', kelompok: 'Aktif', persen: 0 },
+  { id: 'servermdc3', email: 'servermdc3@gmail.com', kelompok: 'Arsip', persen: 0 },
+  { id: 'servermdc4', email: 'servermdc4@gmail.com', kelompok: 'Arsip', persen: 0 },
+];
+
+document.getElementById('seed-name').innerHTML =
+  SEED_USERS.map(u => `<option value="${u.id}">${u.name} (${u.id}@batukunci.app)</option>`).join('');
+
+function log(msg) {
+  document.getElementById('seed-log').innerHTML += `<div>${msg}</div>`;
+}
+
+async function runSeed() {
+  const id = document.getElementById('seed-name').value;
+  const pass = document.getElementById('seed-password').value;
+  document.getElementById('seed-log').innerHTML = '';
+  if (!pass) { log('⚠️ Isi password dulu.'); return; }
+
+  try {
+    log('Login sebagai ' + id + '@batukunci.app ...');
+    await auth.signInWithEmailAndPassword(id + '@batukunci.app', pass);
+    log('✓ Login berhasil.');
+
+    log('Nulis 6 profil anggota ke Firestore...');
+    for (const u of SEED_USERS) {
+      await db.collection('users').doc(u.id).set({ name: u.name, bio: '' }, { merge: true });
+    }
+    log('✓ 6 profil anggota selesai.');
+
+    log('Nulis 4 akun Drive ke Firestore...');
+    for (const a of SEED_DRIVE) {
+      await db.collection('driveAccounts').doc(a.id).set(
+        { email: a.email, kelompok: a.kelompok, persen: a.persen }, { merge: true }
+      );
+    }
+    log('✓ 4 akun Drive selesai.');
+
+    log('<strong style="color:var(--sage)">Beres! Sekarang buka app.html buat login beneran.</strong>');
+  } catch (e) {
+    log('❌ Gagal: ' + (e.code || e.message));
+  }
+}
+</script>
+</body>
+</html>
