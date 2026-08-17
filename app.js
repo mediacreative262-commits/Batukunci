@@ -9,12 +9,12 @@
    ============================================================ */
 
 const firebaseConfig = {
-  apiKey: "GANTI_DENGAN_API_KEY",
-  authDomain: "GANTI.firebaseapp.com",
-  projectId: "GANTI",
-  storageBucket: "GANTI.appspot.com",
-  messagingSenderId: "GANTI",
-  appId: "GANTI",
+  apiKey: "AIzaSyBoAiVpGp_QBa_FQYOQefflFwqKv8Pbry0",
+  authDomain: "mediacreativeut262b.firebaseapp.com",
+  projectId: "mediacreativeut262b",
+  storageBucket: "mediacreativeut262b.firebasestorage.app",
+  messagingSenderId: "263094318099",
+  appId: "1:263094318099:web:363c0cd981b82060cebbe6",
 };
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
