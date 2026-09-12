@@ -26,7 +26,7 @@ const db = firebase.firestore();
    jalan TANPA login Google sama sekali (baca PANDUAN-SETUP-UPLOAD.md
    buat cara masangnya). Kosongin ("") kalau belum di-setup — tombolnya
    otomatis kasih tau minta pake cara manual dulu, gak bikin error. */
-const UPLOAD_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyS6sAGCWzSC-Eb0VBqyg249lFgTPu9N1YW7gjiXRPUmLkGZqDdCsVwvJtsVVT2Wbfb4g/exec";
+const UPLOAD_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzs7uwNHRDkNYboBhfv-rBvJa2yEenNPZivKN8YpXyfAaWkR9sjLR1iwJqsKF65tZhalg/exec";
 const UPLOAD_SECRET = "mdc262"; // HARUS SAMA PERSIS kayak SHARED_SECRET di Apps Script
 let pendingUploadRowId = null;
 let pendingAkunEmail = null;
