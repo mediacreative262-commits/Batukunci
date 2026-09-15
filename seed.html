@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Batu Kunci — Seed Data Awal</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="shell">
+  <div id="login-screen">
+    <div class="login-card">
+      <svg class="arch-mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path class="arch-body" d="M6 42V22C6 11 14 4 24 4C34 4 42 11 42 22V42H33V22C33 16 29 13 24 13C19 13 15 16 15 22V42H6Z"/>
+        <path class="arch-key" d="M20 4H28L26 12H22L20 4Z"/>
+      </svg>
+      <span class="brand-word">Seed Data Awal</span>
+      <p class="login-sub">Sekali jalan doang, buat isi 6 profil anggota + 4 akun Drive ke Firestore.</p>
+
+      <div class="field">
+        <label for="seed-name">Login sebagai (akun yang udah lo buat di Firebase Auth)</label>
+        <select id="seed-name"></select>
+      </div>
+      <div class="field">
+        <label for="seed-password">Password akun itu</label>
+        <input type="password" id="seed-password">
+      </div>
+      <button class="btn btn-primary" onclick="runSeed()">Jalankan Seed</button>
+      <div id="seed-log" style="margin-top:16px; font-size:.85rem; color:var(--ink-soft); text-align:left;"></div>
+      <p class="login-note">Aman dijalanin berkali-kali (gak bakal dobel data) — tapi normalnya cukup sekali di awal.</p>
+    </div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore-compat.js"></script>
+<script>
+/* GANTI config ini SAMA PERSIS kayak yang di app.js / view.js */
+const firebaseConfig = {
+  apiKey: "AIzaSyBoAiVpGp_QBa_FQYOQefflFwqKv8Pbry0",
+  authDomain: "mediacreativeut262b.firebaseapp.com",
+  projectId: "mediacreativeut262b",
+  storageBucket: "mediacreativeut262b.firebasestorage.app",
+  messagingSenderId: "263094318099",
+  appId: "1:263094318099:web:363c0cd981b82060cebbe6",
+};
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+const SEED_USERS = [
+  // Koordinator
+  { id: 'aldireynaldi-mdc.26.2', name: 'Aldi Reynaldi', divisi: 'Koordinator', jabatan: 'Ketua Koordinator' },
+  { id: 'marthaaulia-mdc.26.2', name: 'Martha Aulia', divisi: 'Koordinator', jabatan: 'Wakil Ketua Koordinator' },
+  // Sekretaris
+  { id: 'jauzasyifaasalsabila-mdc.26.2', name: 'Jauza Syifaa Salsabila', divisi: 'Sekretaris', jabatan: 'Sekretaris 1' },
+  { id: 'maulidyazaini-mdc.26.2', name: 'Maulidya Zaini', divisi: 'Sekretaris', jabatan: 'Sekretaris 2' },
+  // Bendahara
+  { id: 'silvadwiandini-mdc.26.2', name: 'Silva Dwi Andini', divisi: 'Bendahara', jabatan: 'Bendahara 1' },
+  { id: 'salsabilabalqisah-mdc.26.2', name: 'Salsabila Balqis A. H', divisi: 'Bendahara', jabatan: 'Bendahara 2' },
+  // Manajerial
+  { id: 'wandinursalam-mdc.26.2', name: 'Wandi Nursalam', divisi: 'Manajerial', jabatan: 'Ketua' },
+  { id: 'aisyahmamduuhah-mdc.26.2', name: 'Aisyah Mamduuhah', divisi: 'Manajerial', jabatan: 'Wakil Ketua' },
+  { id: 'ryani-mdc.26.2', name: 'Ryani', divisi: 'Manajerial', jabatan: 'Anggota' },
+  { id: 'dwicandaindriyani-mdc.26.2', name: 'Dwi Canda Indriyani', divisi: 'Manajerial', jabatan: 'Anggota' },
+  { id: 'mochamadhasfardan-mdc.26.2', name: 'Mochamad Has Fardan', divisi: 'Manajerial', jabatan: 'Anggota' },
+  { id: 'stevanuspratamatambunan-mdc.26.2', name: 'Stevanus Pratama Tambunan', divisi: 'Manajerial', jabatan: 'Anggota' },
+  // Humas
+  { id: 'rianiputrig-mdc.26.2', name: 'Riani Putri. G', divisi: 'Humas', jabatan: 'Ketua' },
+  { id: 'sendinugraha-mdc.26.2', name: 'Sendi Nugraha', divisi: 'Humas', jabatan: 'Wakil Ketua' },
+  { id: 'pinaminatika-mdc.26.2', name: 'Pina Minatika', divisi: 'Humas', jabatan: 'Anggota' },
+  { id: 'bilqisditanshalwa-mdc.26.2', name: 'Bilqis Ditan Shalwa', divisi: 'Humas', jabatan: 'Anggota' },
+  { id: 'dearistianti-mdc.26.2', name: 'Dea Ristianti', divisi: 'Humas', jabatan: 'Anggota' },
+  { id: 'muhammadfachryakbar-mdc.26.2', name: 'Muhammad Fachry Akbar', divisi: 'Humas', jabatan: 'Anggota' },
+  // Media Kreatif (sudah ada, disamakan formatnya)
+  { id: 'risasifafadillah-mdc.26.2', name: 'Risa Sifa Fadillah', divisi: 'Media Kreatif', jabatan: 'Ketua' },
+  { id: 'muhammadfadlimustafidin-mdc.26.2', name: 'Muhammad Fadli Mustafidin', divisi: 'Media Kreatif', jabatan: 'Wakil Ketua' },
+  { id: 'videlaalodia-mdc.26.2', name: 'Videla Alodia', divisi: 'Media Kreatif', jabatan: 'Anggota' },
+  { id: 'adelfinaayusyafitri-mdc.26.2', name: 'Adelfina Ayu Syafitri', divisi: 'Media Kreatif', jabatan: 'Anggota' },
+  { id: 'yolapuspitar-mdc.26.2', name: 'Yola Puspita R', divisi: 'Media Kreatif', jabatan: 'Anggota' },
+  { id: 'nisarastari-mdc.26.2', name: 'Nisar Astari', divisi: 'Media Kreatif', jabatan: 'Anggota' },
+  // Event Creative
+  { id: 'sucisafiraananda-mdc.26.2', name: 'Suci Safira Ananda', divisi: 'Event Kreatif', jabatan: 'Ketua' },
+  { id: 'aurelameliakhaerunissa-mdc.26.2', name: 'Aurel Amelia Khaerunissa', divisi: 'Event Kreatif', jabatan: 'Wakil Ketua' },
+  { id: 'annisanafisachairunisa-mdc.26.2', name: 'Annisa Nafisa Chairunisa', divisi: 'Event Kreatif', jabatan: 'Anggota' },
+  { id: 'firaselfianaqwa-mdc.26.2', name: 'Fira Selfia Naqwa', divisi: 'Event Kreatif', jabatan: 'Anggota' },
+  { id: 'destianurjanah-mdc.26.2', name: 'Destia Nurjanah', divisi: 'Event Kreatif', jabatan: 'Anggota' },
+  { id: 'aliffathurrohman-mdc.26.2', name: 'Alif Fathur Rohman', divisi: 'Event Kreatif', jabatan: 'Anggota' },
+];
+
+const SEED_DRIVE = [
+  { id: 'servermdc1', email: 'servermdc1@gmail.com', kelompok: 'Aktif', persen: 0 },
+  { id: 'servermdc2', email: 'servermdc2@gmail.com', kelompok: 'Aktif', persen: 0 },
+  { id: 'servermdc3', email: 'servermdc3@gmail.com', kelompok: 'Arsip', persen: 0 },
+  { id: 'servermdc4', email: 'servermdc4@gmail.com', kelompok: 'Arsip', persen: 0 },
+];
+
+document.getElementById('seed-name').innerHTML =
+  SEED_USERS.map(u => `<option value="${u.id}">${u.name} (${u.id}@batukunci.app)</option>`).join('');
+
+function log(msg) {
+  document.getElementById('seed-log').innerHTML += `<div>${msg}</div>`;
+}
+
+async function runSeed() {
+  const id = document.getElementById('seed-name').value;
+  const pass = document.getElementById('seed-password').value;
+  document.getElementById('seed-log').innerHTML = '';
+  if (!pass) { log('⚠️ Isi password dulu.'); return; }
+
+  try {
+    log('Login sebagai ' + id + '@batukunci.app ...');
+    await auth.signInWithEmailAndPassword(id + '@batukunci.app', pass);
+    log('✓ Login berhasil.');
+
+    log('Nulis 6 profil anggota ke Firestore...');
+    for (const u of SEED_USERS) {
+      await db.collection('users').doc(u.id).set({ name: u.name, bio: '', divisi: u.divisi, jabatan: u.jabatan }, { merge: true });
+    }
+    log('✓ 6 profil anggota selesai.');
+
+    log('Nulis 4 akun Drive ke Firestore...');
+    for (const a of SEED_DRIVE) {
+      await db.collection('driveAccounts').doc(a.id).set(
+        { email: a.email, kelompok: a.kelompok, persen: a.persen }, { merge: true }
+      );
+    }
+    log('✓ 4 akun Drive selesai.');
+
+    log('<strong style="color:var(--sage)">Beres! Sekarang buka app.html buat login beneran.</strong>');
+  } catch (e) {
+    log('❌ Gagal: ' + (e.code || e.message));
+  }
+}
+</script>
+</body>
+</html>
