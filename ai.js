@@ -42,7 +42,7 @@ async function initAI(){
     if(!config) throw new Error("Konfigurasi Firebase belum tersedia.");
 
     // Pakai app terpisah agar tidak mengganggu Firebase compat lama Batu Kunci.
-    const aiAppName="batu-kunci-ai";
+    const aiAppName="MediaCreative262";
     const aiApp=getApps().find(a=>a.name===aiAppName) || initializeApp(config, aiAppName);
 
     if(RECAPTCHA_ENTERPRISE_SITE_KEY){
