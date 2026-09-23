@@ -22,7 +22,7 @@ firebase.initializeApp(firebaseConfig);
 
 // Firebase App Check HARUS aktif sebelum Auth/Firestore/AI digunakan.
 // Key ini sama dengan key yang terdaftar untuk MediaCreative262.
-const RECAPTCHA_ENTERPRISE_SITE_KEY = "6LfEPcgtAAAAAI1KD2_C55Pd6wJsXVv9fY-J0BH6";
+const RECAPTCHA_ENTERPRISE_SITE_KEY = "6LcvasotAAAAALinaHtidRx-Ry8LH2AW__uz6zNT";
 try {
   firebase.appCheck().activate(
     new firebase.appCheck.ReCaptchaEnterpriseProvider(RECAPTCHA_ENTERPRISE_SITE_KEY),
