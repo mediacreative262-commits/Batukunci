@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- BATU-KUNCI-BUILD-19 -->
+<title>Batu Kunci — Tim Media Kreatif</title>
+<link rel="stylesheet" href="style.css?v=24">
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- ===================== LOGIN ===================== -->
+  <div id="login-screen">
+    <div class="login-card">
+      <svg class="arch-mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path class="arch-body" d="M6 42V22C6 11 14 4 24 4C34 4 42 11 42 22V42H33V22C33 16 29 13 24 13C19 13 15 16 15 22V42H6Z"/>
+        <path class="arch-key" d="M20 4H28L26 12H22L20 4Z"/>
+      </svg>
+      <span class="brand-word">Batu Kunci</span>
+      <p class="login-sub">Tim Media Kreatif — Angkatan 26.2</p>
+
+      <div class="field">
+        <label for="login-name">Nama</label>
+        <select id="login-name"></select>
+      </div>
+      <div class="field">
+        <label for="login-password">Password</label>
+        <input type="password" id="login-password" placeholder="••••••••">
+      </div>
+      <p id="login-error" style="color:var(--terracotta); font-size:.82rem; margin-bottom:12px;"></p>
+      <button class="btn btn-primary" onclick="doLogin()">Masuk</button>
+      <p class="login-note">*Pilih Nama dan Isi Password ya manteman! Selamat Ber-Working! ^-^.</p>
+    </div>
+  </div>
+
+  <!-- ===================== APP SHELL ===================== -->
+  <div id="app-shell" class="hidden">
+
+    <aside class="desktop-sidebar" aria-label="Navigasi utama">
+      <div class="sidebar-label">WORKSPACE</div>
+      <nav class="side-nav">
+        <button class="side-nav-item active" data-nav="home" onclick="showView('home')"><span class="nav-symbol">⌂</span><span>Home</span></button>
+        <button class="side-nav-item" data-nav="upload" onclick="showView('upload')"><span class="nav-symbol">＋</span><span>Upload Project</span></button>
+        <button class="side-nav-item" data-nav="gallery" onclick="showView('gallery')"><span class="nav-symbol">▧</span><span>Gallery</span></button>
+        <button class="side-nav-item" data-nav="chat" onclick="showView('chat')"><span class="nav-symbol">◌</span><span>Chat</span></button>
+        <button class="side-nav-item" data-nav="settings" onclick="showView('settings')"><span class="nav-symbol">⚙</span><span>Settings</span></button>
+      </nav>
+      <div class="sidebar-foot">
+        <div class="sidebar-brand-dot"></div>
+        <div><strong>Batu Kunci</strong><small>Media Kreatif · 26.2</small></div>
+      </div>
+    </aside>
+
+    <div class="mobile-bottom-nav" aria-label="Navigasi utama">
+      <button class="mobile-nav-item active" data-nav="home" onclick="showView('home')"><span>⌂</span><small>Home</small></button>
+      <button class="mobile-nav-item" data-nav="upload" onclick="showView('upload')"><span>＋</span><small>Project</small></button>
+      <button class="mobile-nav-item" data-nav="gallery" onclick="showView('gallery')"><span>▧</span><small>Gallery</small></button>
+      <button class="mobile-nav-item" data-nav="chat" onclick="showView('chat')"><span>◌</span><small>Chat</small></button>
+      <button class="mobile-nav-item" data-nav="settings" onclick="showView('settings')"><span>⚙</span><small>Profil</small></button>
+    </div>
+    <button type="button" class="mobile-nav-collapse" onclick="toggleMobileNav()" aria-label="Sembunyikan navigasi bawah" aria-expanded="true">⌄</button>
+
+    <div class="topbar">
+      <button type="button" class="brandmark brandmark-home" onclick="showView('home')" aria-label="Kembali ke Home">
+        <svg class="arch-mark" width="30" height="30" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path class="arch-body" d="M6 42V22C6 11 14 4 24 4C34 4 42 11 42 22V42H33V22C33 16 29 13 24 13C19 13 15 16 15 22V42H6Z"/>
+          <path class="arch-key" d="M20 4H28L26 12H22L20 4Z"/>
+        </svg>
+        <span class="brand-word">Batu Kunci</span>
+      </button>
+      <div class="topbar-actions">
+        <button type="button" class="icon-btn notification-btn" onclick="toggleNotifications()" aria-label="Notifikasi"><span id="notification-bell">♢</span><span id="notification-count" class="notification-count hidden">0</span></button>
+        <button type="button" class="icon-btn theme-toggle" onclick="toggleTheme()" aria-label="Ganti tema">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/></svg>
+        </button>
+        <button type="button" class="ai-open-btn" onclick="openBatuKunciAI()" aria-label="Buka Batu Kunci AI">
+          <span class="ai-spark">✦</span><span class="ai-open-label">Batu Kunci AI</span>
+        </button>
+        <div class="menu-wrap">
+          <button type="button" class="icon-btn menu-btn" id="menu-btn" onclick="toggleMenu()" aria-label="Buka menu" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+          <div class="menu-dropdown hidden" id="dropdown-menu">
+            <button class="menu-item" onclick="showView('settings')"><svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.2"/><path d="M5.5 20c.7-3.4 2.9-5.2 6.5-5.2s5.8 1.8 6.5 5.2"/><path d="M18.5 4.8l.8.8"/></svg><span>Profil & Settings</span></button>
+            <button class="menu-item" onclick="showView('upload')"><svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4"/><path d="M7.5 8.5 12 4l4.5 4.5"/><path d="M5 13.5v5h14v-5"/></svg><span>Upload Project</span></button>
+            <button class="menu-item" onclick="showView('gallery')"><svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4" width="17" height="16" rx="2"/><circle cx="8.5" cy="9" r="1.4"/><path d="m5.5 17 4.4-4.2 3.2 3 2.1-2 3.3 3.2"/></svg><span>Gallery</span></button>
+            <button class="menu-item" onclick="showView('chat')"><svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6.5h14v9H10l-5 4v-4H5z"/><path d="M8 10h8M8 13h5"/></svg><span>Chat Tim</span></button>
+            <button class="menu-item" onclick="openViewMode()"><svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13.8 14 9.9"/><path d="M8.1 16.8H6.4a3.6 3.6 0 0 1 0-7.2h3"/><path d="M15.9 7.2h1.7a3.6 3.6 0 0 1 0 7.2h-3"/></svg><span>Web View</span></button>
+            <button class="menu-item menu-item-danger" onclick="doLogout()"><svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 4H5.5v16H10"/><path d="M14 8l4 4-4 4"/><path d="M8 12h10"/></svg><span>Keluar</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- HOME ---------- -->
+    <section id="view-home" class="page">
+      <div class="home-intro">
+        <div>
+          <p class="page-desc" id="home-greeting" style="margin-bottom:2px;"></p>
+          <h1 class="page-title">Home</h1>
+        </div>
+        <span class="home-kicker">WORKSPACE · 26.2</span>
+      </div>
+
+      <div class="workspace-stats" aria-label="Ringkasan workspace">
+        <div class="stat-card stat-project">
+          <div class="stat-top"><span class="stat-icon">◫</span><span class="stat-label">Proyek aktif</span></div>
+          <div class="stat-value" id="stat-active-projects">0</div>
+          <div class="stat-foot"><span class="stat-dot"></span><span>Masih berjalan</span></div>
+        </div>
+        <div class="stat-card stat-process">
+          <div class="stat-top"><span class="stat-icon">↗</span><span class="stat-label">Dalam proses</span></div>
+          <div class="stat-value" id="stat-process-projects">0</div>
+          <div class="stat-foot"><span class="stat-dot"></span><span>Sedang dikerjakan</span></div>
+        </div>
+        <div class="stat-card stat-album">
+          <div class="stat-top"><span class="stat-icon">▧</span><span class="stat-label">Album</span></div>
+          <div class="stat-value" id="stat-albums">0</div>
+          <div class="stat-foot"><span class="stat-dot"></span><span>Tersimpan di workspace</span></div>
+        </div>
+      </div>
+
+      <div class="tabs">
+        <div class="tab-indicator" id="tab-indicator"></div>
+        <button class="tab active" id="tab-belum" onclick="setTab('belum')">Belum Selesai</button>
+        <button class="tab" id="tab-arsip" onclick="setTab('arsip')">Arsip</button>
+      </div>
+      <div id="project-list"></div>
+    </section>
+
+    <!-- ---------- UPLOAD PROJECT ---------- -->
+    <section id="view-upload" class="page hidden">
+      <div class="page-head">
+        <div><h1 class="page-title">Upload Project</h1><p class="page-desc">Isi detailnya, nanti otomatis nongol di Home.</p></div>
+        <button type="button" class="page-home-btn" onclick="showView('home')"><span>⌂</span> Home</button>
+      </div>
+
+      <div class="field">
+        <label for="upload-nama">Nama Project</label>
+        <input type="text" id="upload-nama" placeholder="Mis. Poster Open Recruitment">
+      </div>
+      <div class="field">
+        <label for="upload-deadline">Deadline</label>
+        <input type="date" id="upload-deadline">
+      </div>
+      <div class="field">
+        <label for="upload-brief">Brief</label>
+        <textarea id="upload-brief" placeholder="Arahan singkat buat yang ngerjain..."></textarea>
+      </div>
+
+      <div class="field">
+        <label>Assign ke</label>
+        <div class="chip-select" id="assign-chips"></div>
+      </div>
+
+      <div class="field">
+        <label>Status</label>
+        <div class="status-select" id="status-select"></div>
+      </div>
+
+      <div class="field">
+        <label>Aset</label>
+        <p class="page-desc" style="margin:-4px 0 10px;">Upload file-nya ke Google Drive dulu (klik "Buka Drive" di bawah, set "Anyone with the link"), baru paste linknya — preview-nya langsung nongol otomatis.</p>
+        <div id="aset-rows"></div>
+        <button type="button" class="btn btn-ghost btn-sm" onclick="addAsetRow()">＋ Tambah Aset</button>
+      </div>
+
+      <div style="display:flex; gap:10px; margin-top:24px;">
+        <button class="btn btn-ghost" onclick="showView('home')">Batal</button>
+        <button class="btn btn-primary" onclick="submitUpload()">Simpan Project</button>
+      </div>
+    </section>
+
+    <!-- ---------- GALLERY ---------- -->
+    <section id="view-gallery" class="page hidden">
+      <div class="page-head">
+        <div><h1 class="page-title">Gallery</h1><p class="page-desc">Kumpulan hasil desain final tim — kepisah dari file kerja di Aset.</p></div>
+        <button type="button" class="page-home-btn" onclick="showView('home')"><span>⌂</span> Home</button>
+      </div>
+
+      <div class="chip-select" id="album-chips" style="margin-bottom:16px;"></div>
+
+      <div class="gallery-grid" id="gallery-grid"></div>
+
+      <div class="keystone-divider"><span>Tambah ke Gallery</span></div>
+      <div class="field">
+        <label for="gallery-label">Judul</label>
+        <input type="text" id="gallery-label" placeholder="Mis. Logo IG Angkatan 26.2">
+      </div>
+      <div class="field">
+        <label for="gallery-album">Masuk Album</label>
+        <select id="gallery-album"></select>
+      </div>
+      <div class="field">
+        <label for="gallery-akun">Disimpen di akun mana?</label>
+        <select id="gallery-akun"></select>
+      </div>
+      <button type="button" class="btn btn-primary btn-sm aset-upload-btn" id="gallery-upload-btn" onclick="startGalleryUpload()">⬆ Upload Langsung ke Drive</button>
+      <p class="aset-or">atau tempel link manual</p>
+      <div class="field">
+        <label for="gallery-link">Link Google Drive</label>
+        <input type="text" id="gallery-link" placeholder="Link file (Anyone with the link)" oninput="previewGalleryLink()">
+      </div>
+      <div class="aset-link-actions">
+        <button type="button" class="btn btn-ghost btn-sm" onclick="openGalleryDriveFolder()">Buka Drive ↗</button>
+        <button type="button" class="btn btn-ghost btn-sm" onclick="pasteGalleryFromClipboard()">📋 Tempel Link</button>
+      </div>
+      <div id="gallery-link-preview"></div>
+      <button class="btn btn-primary" style="margin-top:10px;" onclick="addGalleryItem()">Tambah ke Gallery</button>
+    </section>
+
+    <!-- ---------- CHAT ---------- -->
+    <section id="view-chat" class="page hidden">
+      <div class="page-head">
+        <div><h1 class="page-title">Chat</h1><p class="page-desc">Komentar project, grup tim, dan japri dalam satu tempat.</p></div>
+        <button type="button" class="page-home-btn" onclick="showView('home')"><span>⌂</span> Home</button>
+      </div>
+
+      <div class="chat-tabs">
+        <button class="chat-tab active" data-chat-tab="comments" onclick="setChatTab('comments')">Komentar Project</button>
+        <button class="chat-tab" data-chat-tab="groups" onclick="setChatTab('groups')">Grup Chat</button>
+        <button class="chat-tab" data-chat-tab="dm" onclick="setChatTab('dm')">Japri</button>
+      </div>
+
+      <div id="chat-comments-panel" class="chat-panel">
+        <div class="chat-toolbar"><label class="chat-project-label" for="comment-project-select">Project yang dikomentari</label><select id="comment-project-select" class="chat-project-select" onchange="selectCommentProject(this.value)"></select></div>
+        <div id="project-comments" class="chat-messages"></div>
+        <form class="chat-composer" onsubmit="sendProjectComment(event)"><input id="project-comment-input" placeholder="Tulis komentar untuk project ini..." maxlength="500"><button class="btn btn-primary btn-sm">Kirim</button></form>
+      </div>
+
+      <div id="chat-groups-panel" class="chat-panel hidden">
+        <div class="chat-layout">
+          <aside class="chat-list" id="group-list"></aside>
+          <div class="chat-room">
+            <div class="chat-room-head"><div><strong id="group-chat-title">Pilih grup</strong><small id="group-chat-admin-label" class="group-admin-label"></small></div><div class="chat-room-actions"><button id="group-leave-btn" class="btn btn-ghost btn-sm hidden" onclick="leaveSelectedGroup()">Keluar</button><button id="group-edit-btn" class="btn btn-ghost btn-sm hidden" onclick="openGroupEditor(selectedGroupId)">✎ Edit Grup</button><button class="btn btn-ghost btn-sm" onclick="openCreateGroup()">＋ Grup</button></div></div>
+            <div id="group-messages" class="chat-messages"></div>
+            <form class="chat-composer chat-group-composer" onsubmit="sendGroupMessage(event)"><div class="chat-mention-picker hidden" id="group-mention-picker"></div><div class="chat-attach-actions"><button type="button" class="chat-attach-btn" title="Foto / Video" onclick="document.getElementById('group-media-input').click()">＋</button><button type="button" class="chat-attach-btn voice" title="Rekam VN" onclick="toggleVoiceRecording('group')">●</button><input id="group-media-input" class="chat-file-input" type="file" accept="image/*,video/*" onchange="handleChatMediaSelected(this,'group')"></div><input id="group-message-input" autocomplete="off" placeholder="Tulis pesan ke grup... gunakan @ untuk tag" maxlength="1000"><button id="group-send-btn" class="btn btn-primary btn-sm">Kirim</button></form>
+          </div>
+        </div>
+      </div>
+
+      <div id="chat-dm-panel" class="chat-panel hidden">
+        <div class="chat-layout">
+          <aside class="chat-list" id="dm-list"></aside>
+          <div class="chat-room">
+            <div class="chat-room-head"><strong id="dm-chat-title">Pilih anggota</strong></div>
+            <div id="dm-messages" class="chat-messages"></div>
+            <form class="chat-composer" onsubmit="sendDirectMessage(event)"><div class="chat-attach-actions"><button type="button" class="chat-attach-btn" title="Foto / Video" onclick="document.getElementById('dm-media-input').click()">＋</button><button type="button" class="chat-attach-btn voice" title="Rekam VN" onclick="toggleVoiceRecording('dm')">●</button><input id="dm-media-input" class="chat-file-input" type="file" accept="image/*,video/*" onchange="handleChatMediaSelected(this,'dm')"></div><input id="dm-message-input" placeholder="Tulis pesan pribadi..." maxlength="1000"><button id="dm-send-btn" class="btn btn-primary btn-sm">Kirim</button></form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- SETTINGS ---------- -->
+    <section id="view-settings" class="page hidden">
+      <div class="page-head">
+        <div><h1 class="page-title">Settings</h1><p class="page-desc">Profil, akun, dan pengaturan workspace.</p></div>
+        <button type="button" class="page-home-btn" onclick="showView('home')"><span>⌂</span> Home</button>
+      </div>
+
+      <div class="settings-section">
+        <h3>Profil</h3>
+        <div class="profile-head">
+          <div id="profile-avatar-wrap"></div>
+          <div>
+            <strong id="profile-name-display"></strong>
+            <button type="button" class="btn btn-ghost btn-sm aset-upload-btn" id="profile-photo-btn" style="margin-top:6px;" onclick="startProfilePhotoUpload()">📷 Ganti Foto</button>
+          </div>
+        </div>
+        <div class="field">
+          <label for="profile-name-input">Nama</label>
+          <input type="text" id="profile-name-input">
+        </div>
+        <div class="field">
+          <label for="profile-bio-input">Bio</label>
+          <textarea id="profile-bio-input" placeholder="Opsional..."></textarea>
+        </div>
+        <div class="field">
+          <label>Warna Latar (mode terang)</label>
+          <div class="bg-swatches" id="bg-swatches"></div>
+        </div>
+        <div class="field">
+          <label for="profile-music">Musik Latar (opsional)</label>
+          <input type="text" id="profile-music" placeholder="Link Google Drive (Anyone with the link)">
+        </div>
+        <div class="aset-link-actions">
+          <a href="https://drive.google.com" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">Buka Drive ↗</a>
+          <button type="button" class="btn btn-ghost btn-sm" onclick="pasteMusicFromClipboard()">📋 Tempel Link</button>
+        </div>
+        <button class="btn btn-ghost" style="margin-top:10px;" onclick="saveProfile()">Simpan Profil</button>
+      </div>
+
+      <div class="settings-section notification-settings-section">
+        <h3>Notifikasi</h3>
+        <div class="notification-setting-row">
+          <div>
+            <strong>Notifikasi Batu Kunci</strong>
+            <p class="page-desc">Reminder deadline, komentar, grup, dan Japri. Default-nya aktif untuk anggota baru.</p>
+          </div>
+          <label class="switch"><input type="checkbox" id="notification-setting-toggle" onchange="setNotificationPreference(this.checked)"><span></span></label>
+        </div>
+        <div class="notification-permission-box" id="notification-permission-box">
+          <div><strong id="notification-permission-title">Status: belum diizinkan</strong><small id="notification-permission-text">Chrome akan meminta izin saat Batu Kunci pertama kali dibuka.</small></div>
+          <button type="button" class="btn btn-ghost btn-sm" onclick="requestNotificationPermission(true)">Izinkan Notifikasi</button>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <h3>Ganti Password</h3>
+        <div class="field">
+          <label for="profile-newpass">Password Baru</label>
+          <input type="password" id="profile-newpass">
+        </div>
+        <div class="field">
+          <label for="profile-newpass-confirm">Konfirmasi Password</label>
+          <input type="password" id="profile-newpass-confirm">
+        </div>
+        <button class="btn btn-ghost" onclick="changePassword()">Ganti Password</button>
+      </div>
+
+      <div class="settings-section">
+        <h3>Daftar Akun Drive</h3>
+        <p class="page-desc" style="margin-bottom:12px;">Pemakaian servermdc2 untuk media chat dihitung otomatis. Akun Drive lain masih bisa diatur manual.</p>
+        <div id="drive-list"></div>
+      </div>
+
+      <button class="btn btn-danger" onclick="doLogout()">Keluar</button>
+    </section>
+
+  </div>
+</div>
+
+
+<div id="group-editor-modal" class="group-editor-modal hidden" aria-hidden="true">
+  <div class="group-editor-backdrop" onclick="closeGroupEditor()"></div>
+  <section class="group-editor-panel" role="dialog" aria-modal="true" aria-labelledby="group-editor-title">
+    <header class="group-editor-head">
+      <div><span class="group-editor-eyebrow">GRUP CHAT</span><h2 id="group-editor-title">Edit Grup</h2><p>Atur nama, anggota, dan admin. Hanya admin grup yang bisa mengubah bagian ini.</p></div>
+      <button class="group-editor-close" onclick="closeGroupEditor()" aria-label="Tutup">×</button>
+    </header>
+    <div class="field group-editor-name-field"><label for="group-editor-name">Nama grup</label><input id="group-editor-name" type="text" maxlength="80" placeholder="Mis. Tim Media Kreatif"></div>
+    <div class="group-picker-head"><div><strong>Anggota grup</strong><small>Pilih langsung dari daftar, seperti grup chat biasa.</small></div><span id="group-picker-count"></span></div>
+    <div id="group-member-picker" class="group-member-picker"></div>
+    <div class="group-editor-note">Admin dapat menambah/menghapus anggota dan menetapkan admin lain. Minimal satu admin harus tetap ada.</div>
+    <footer class="group-editor-foot"><button class="btn btn-danger hidden" id="group-delete-btn" onclick="deleteSelectedGroup()">Hapus Grup</button><span></span><button class="btn btn-ghost" onclick="closeGroupEditor()">Batal</button><button class="btn btn-primary" onclick="saveGroupEditor()">Simpan</button></footer>
+  </section>
+</div>
+
+<div id="notification-panel" class="notification-panel hidden"><div class="notification-head"><strong>Notifikasi</strong><button onclick="markNotificationsRead()">Tandai dibaca</button></div><div id="notification-list"></div></div>
+<input type="file" id="drive-upload-input" class="hidden" onchange="handleDriveFilePicked(event)">
+<div class="music-panel hidden" id="music-panel">
+  <div class="music-player hidden" id="music-player-custom">
+    <button class="music-play-btn" id="music-play-btn" onclick="toggleMusicPlay()">▶</button>
+    <div class="music-track-info">
+      <div class="music-track-name">🎵 Musik Latar</div>
+      <div class="music-bar"><div class="music-bar-fill" id="music-bar-fill"></div></div>
+    </div>
+  </div>
+  <iframe id="music-frame" class="hidden" src="" allow="autoplay" loading="lazy"></iframe>
+</div>
+<audio id="music-audio" loop></audio>
+<button id="music-toggle" class="music-toggle hidden" onclick="toggleMusicPanel()" aria-label="Musik latar">🎵</button>
+<button id="ai-fab" class="ai-fab hidden" onclick="openBatuKunciAI()" aria-label="Buka Batu Kunci AI"><span>✦</span></button>
+
+<div id="ai-modal" class="ai-modal hidden" aria-hidden="true">
+  <div class="ai-backdrop" onclick="closeBatuKunciAI()"></div>
+  <section class="ai-panel" role="dialog" aria-modal="true" aria-labelledby="ai-title">
+    <header class="ai-header">
+      <div>
+        <div class="ai-eyebrow"><span class="ai-status-dot"></span> BATU KUNCI AI</div>
+        <h2 id="ai-title">Asisten Media Kreatif</h2>
+        <p>Bantu bikin caption, konsep, brief, atau mikirin ide konten. Ya, akhirnya robot ikut rapat.</p>
+      </div>
+      <button class="ai-close" onclick="closeBatuKunciAI()" aria-label="Tutup">×</button>
+    </header>
+    <div class="ai-suggestions">
+      <button onclick="useAISuggestion('Bantu buatkan caption Instagram untuk project ini dengan gaya profesional tapi tetap santai.')">Caption</button>
+      <button onclick="useAISuggestion('Beri 5 ide konten Media Kreatif yang realistis dibuat oleh tim mahasiswa.')">Ide konten</button>
+      <button onclick="useAISuggestion('Bantu rapikan brief desain berikut agar jelas dan mudah dikerjakan tim.')">Rapikan brief</button>
+    </div>
+    <div id="ai-messages" class="ai-messages" aria-live="polite">
+      <div class="ai-message ai-message-bot">Halo. Gue Batu Kunci AI. Kasih brief atau pertanyaan lo, nanti gue bantu pecah jadi sesuatu yang masuk akal.</div>
+    </div>
+    <div id="ai-error" class="ai-error hidden"></div>
+    <form class="ai-composer" onsubmit="sendBatuKunciAI(event)">
+      <textarea id="ai-input" rows="1" placeholder="Tulis pesan..." autocomplete="off"></textarea>
+      <button id="ai-send" type="submit" aria-label="Kirim">↑</button>
+    </form>
+    <div class="ai-footnote">Gemini via Firebase AI Logic · Jangan masukkan password atau data sensitif.</div>
+  </section>
+</div>
+<script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-storage-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-messaging-compat.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+<script type="module" src="ai.js"></script>
+</body>
+</html>
