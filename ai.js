@@ -58,7 +58,7 @@ async function initAI(){
        * compat SDK, while Firebase AI Logic's browser SDK is modular.
        * A named modular app avoids mixing the two SDK instances.
        */
-      const appName="BatuKunciAI";
+      const appName="BatuKunci262";
       const aiApp=getApps().some(a=>a.name===appName)
         ? getApp(appName)
         : initializeApp(config, appName);
