@@ -1421,7 +1421,7 @@ function withReply(data){
   return r ? {...data, replyTo:r} : data;
 }
 
-function sendChatText(chatId,text,meta={mentions:[],mentionAll:false}){
+async function sendChatText(chatId,text,meta={mentions:[],mentionAll:false}){
   await db.collection('chats').doc(chatId).collection('messages').add(withReply({senderId:currentUser.id,senderName:currentUser.name,text,mentions:meta.mentions||[],mentionAll:!!meta.mentionAll,createdAt:firebase.firestore.FieldValue.serverTimestamp()}));
   cancelReply();
   await db.collection('chats').doc(chatId).set({updatedAt:firebase.firestore.FieldValue.serverTimestamp()},{merge:true});
