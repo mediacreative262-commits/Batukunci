@@ -10,7 +10,7 @@ import { initializeAppCheck, ReCaptchaEnterpriseProvider, getToken } from "https
 import { getAI, getGenerativeModel, GoogleAIBackend } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-ai.js";
 
 const AI_MODEL = "gemini-3.8-flash";
-const RECAPTCHA_ENTERPRISE_SITE_KEY = "6LcvasotAAAAAJhrXnUC7wMUMLT-Y65P2-vGRWBO";
+const RECAPTCHA_ENTERPRISE_SITE_KEY = "6LcvasotAAAAAJhrXnUC7wMUMLT-Y65P2-vGRWB0";
 
 const SYSTEM_INSTRUCTION = `Kamu adalah Batu Kunci AI, asisten untuk Tim Media Kreatif Angkatan 26.2 Administrasi Bisnis UT Bandung.
 Bantu pengguna membuat caption, ide konten, brief desain, copywriting, struktur project, dan brainstorming.
