@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f8f9fa">
+<!-- BATU-KUNCI-VIEW-4 -->
+<title>Batu Kunci — Public Board</title>
+<link rel="stylesheet" href="style.css?v=24">
+<link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="./favicon-64.png">
+<link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+<meta name="application-name" content="Batu Kunci">
+</head>
+<body class="view-body">
+<div class="view-bg" aria-hidden="true"></div>
+
+<div class="shell view-shell">
+  <header class="topbar view-topbar">
+    <a class="view-brand" href="index.html" aria-label="Batu Kunci">
+      <img src="./icon-192.png" alt="" class="view-brand-icon">
+      <span>
+        <strong>Batu Kunci</strong>
+        <small>Media Kreatif · 26.2</small>
+      </span>
+    </a>
+
+    <div class="view-top-actions">
+      <span class="view-live-badge"><i></i> Live board</span>
+      <button class="icon-btn theme-toggle" onclick="toggleTheme()" aria-label="Ganti tema">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="page view-page">
+    <section class="view-hero view-enter">
+      <div class="view-hero-copy">
+        <div class="view-eyebrow"><span class="view-live-dot"></span> PUBLIC WORKSPACE</div>
+        <h1 class="page-title">Progress tim,<br><em>tanpa perlu buka dapur internal.</em></h1>
+        <p class="page-desc">Ruang publik untuk melihat project yang sedang berjalan dan arsip visual Tim Media Kreatif Angkatan 26.2.</p>
+      </div>
+      <div class="view-hero-meta">
+        <span class="hero-meta-label">Diperbarui otomatis</span>
+        <strong id="view-last-update">Baru saja</strong>
+      </div>
+    </section>
+
+    <section class="view-overview" aria-label="Ringkasan">
+      <div class="view-stat-card view-stat-featured">
+        <span class="view-stat-icon">↗</span>
+        <div><span class="view-stat-label">Project aktif</span><strong id="view-stat-projects">—</strong><small>sedang dikerjakan tim</small></div>
+      </div>
+      <div class="view-stat-card">
+        <span class="view-stat-label">Dalam proses</span>
+        <strong id="view-stat-process">—</strong>
+        <small>project berstatus proses</small>
+      </div>
+      <div class="view-stat-card">
+        <span class="view-stat-label">Album</span>
+        <strong id="view-stat-albums">—</strong>
+        <small>koleksi visual tim</small>
+      </div>
+    </section>
+
+    <section class="view-section" id="projects-section">
+      <div class="view-section-head">
+        <div>
+          <span class="view-kicker">01 · PROJECT</span>
+          <h2>Yang sedang dikerjakan</h2>
+          <p>Lihat status, deadline, anggota, dan brief tanpa masuk ke workspace internal.</p>
+        </div>
+      </div>
+
+      <div class="view-toolbar">
+        <label class="view-search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+          <input id="view-project-search" type="search" placeholder="Cari project..." autocomplete="off">
+        </label>
+        <div class="view-filter" role="group" aria-label="Filter project">
+          <button class="is-active" data-filter="all">Semua</button>
+          <button data-filter="proses">Proses</button>
+          <button data-filter="belum">Belum mulai</button>
+        </div>
+      </div>
+
+      <div id="view-project-list" class="view-project-grid"></div>
+    </section>
+
+    <section class="view-section view-gallery-section" id="gallery-section">
+      <div class="view-section-head">
+        <div>
+          <span class="view-kicker">02 · GALLERY</span>
+          <h2>Arsip visual</h2>
+          <p>Pilih album untuk melihat hasil dokumentasi dan aset publik tim.</p>
+        </div>
+      </div>
+
+      <div id="view-gallery-empty" class="empty-state hidden"><p>Gallery masih kosong.</p></div>
+      <div id="album-carousel-view">
+        <div class="album-carousel" id="album-carousel"></div>
+      </div>
+
+      <div id="album-detail-view" class="hidden">
+        <div class="album-detail-head">
+          <button class="album-back-btn" onclick="closeAlbum()" aria-label="Kembali ke semua album">← Semua album</button>
+          <div>
+            <span class="view-kicker">ALBUM</span>
+            <h3 class="album-detail-title" id="album-detail-title"></h3>
+          </div>
+        </div>
+        <div class="gallery-grid" id="album-detail-grid"></div>
+      </div>
+    </section>
+
+    <footer class="view-footer">
+      <div class="view-footer-brand"><img src="./icon-192.png" alt=""><span><strong>Batu Kunci</strong><small>Tim Media Kreatif · ADBIS UT Bandung 26.2</small></span></div>
+      <span>Public View · Read only</span>
+    </footer>
+  </main>
+</div>
+
+<div id="view-lightbox" class="view-lightbox hidden" aria-hidden="true">
+  <button class="lightbox-close" onclick="closeLightbox()" aria-label="Tutup">×</button>
+  <div class="lightbox-backdrop" onclick="closeLightbox()"></div>
+  <div class="lightbox-panel" role="dialog" aria-modal="true" aria-label="Preview gambar">
+    <img id="view-lightbox-img" alt="">
+    <div id="view-lightbox-label" class="lightbox-label"></div>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore-compat.js"></script>
+<script src="data.js"></script>
+<script src="view.js"></script>
+</body>
+</html>
