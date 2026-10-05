@@ -1,0 +1,4 @@
+{
+  "functions": {"source": "functions"},
+  "hosting": {"public": ".", "ignore": ["firebase.json", "functions/**", "**/.*", "**/node_modules/**"]}
+}
