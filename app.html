@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- BATU-KUNCI-BUILD-32 -->
+<title>Batu Kunci — Tim Media Kreatif</title>
+<link rel="stylesheet" href="style.css?v=32">
+<link rel="stylesheet" href="ui-refresh.css?v=31">
+<link rel="stylesheet" href="labs-refresh.css?v=32">
+<link rel="stylesheet" href="motion-polish.css?v=33">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11.2.10/swiper-bundle.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.15.10/dist/sweetalert2.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#f7f8fa">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png">
+<link rel="icon" type="image/png" sizes="64x64" href="./favicon-64.png">
+<link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+<meta name="application-name" content="Batu Kunci">
+<link rel="stylesheet" href="video-preview.css?v=33.1">
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- ===================== LOGIN ===================== -->
+  <div id="login-screen">
+    <div class="login-layout">
+      <section class="login-showcase" aria-label="Tentang Batu Kunci">
+        <div class="labs-eyebrow"><span class="labs-live-dot"></span> MEDIA KREATIF · ANGKATAN 26.2</div>
+        <h1>Satu ruang.<br><span>Banyak kemungkinan.</span></h1>
+        <p>Tempat ide dikumpulkan, karya dibagikan, dan tim bergerak bersama dari brief pertama sampai hasil akhir.</p>
+        <div class="login-showcase-art" aria-hidden="true">
+          <div class="login-art-orbit"></div>
+          <div class="login-art-tile login-art-tile-a"><i data-lucide="layers"></i><span>PROJECTS</span></div>
+          <div class="login-art-tile login-art-tile-b"><i data-lucide="images"></i><span>GALLERY</span></div>
+          <div class="login-art-tile login-art-tile-c"><i data-lucide="sparkles"></i><span>IDEAS</span></div>
+          <div class="login-art-dot login-art-dot-a"></div><div class="login-art-dot login-art-dot-b"></div>
+        </div>
+        <div class="login-showcase-foot"><span>BUILT FOR CREATIVE TEAMS</span><span>01 / 26.2</span></div>
+      </section>
+      <div class="login-card">
+      <svg class="arch-mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path class="arch-body" d="M6 42V22C6 11 14 4 24 4C34 4 42 11 42 22V42H33V22C33 16 29 13 24 13C19 13 15 16 15 22V42H6Z"/>
+        <path class="arch-key" d="M20 4H28L26 12H22L20 4Z"/>
+      </svg>
+      <span class="brand-word">Batu Kunci</span>
+      <p class="login-sub">Tim Media Kreatif — Angkatan 26.2</p>
+
+      <div class="field">
+        <label for="login-name">Nama</label>
+        <select id="login-name"></select>
+      </div>
+      <div class="field">
+        <label for="login-password">Password</label>
+        <input type="password" id="login-password" placeholder="••••••••">
+      </div>
+      <p id="login-error" style="color:var(--terracotta); font-size:.82rem; margin-bottom:12px;"></p>
+      <button class="btn btn-primary" onclick="doLogin()">Masuk</button>
+      <p class="login-note">*Pilih Nama dan Isi Password ya manteman! Selamat Ber-Working! ^-^.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== APP SHELL ===================== -->
+  <div id="app-shell" class="hidden">
+
+    <div class="mobile-bottom-nav" aria-label="Navigasi utama">
+      <button class="mobile-nav-item active" data-nav="home" onclick="showView('home')"><span aria-hidden="true"><i data-lucide="house"></i></span><small>Home</small></button>
+      <button class="mobile-nav-item" data-nav="upload" onclick="showView('upload')"><span><i data-lucide="folder-plus"></i></span><small>Project</small></button>
+      <button class="mobile-nav-item" data-nav="gallery" onclick="showView('gallery')"><span aria-hidden="true"><i data-lucide="images"></i></span><small>Gallery</small></button>
+      <button class="mobile-nav-item" data-nav="chat" onclick="showView('chat')"><span aria-hidden="true"><i data-lucide="messages-square"></i></span><small>Chat</small></button>
+      <button class="mobile-nav-item" data-nav="settings" onclick="showView('settings')"><span aria-hidden="true"><i data-lucide="user-round"></i></span><small>Profil</small></button>
+    </div>
+    <button type="button" class="mobile-nav-collapse" onclick="toggleMobileNav()" aria-label="Sembunyikan navigasi bawah" aria-expanded="true">⌄</button>
+
+    <div class="topbar">
+      <button type="button" class="brandmark brandmark-home" onclick="showView('home')" aria-label="Kembali ke Home">
+        <svg class="arch-mark" width="30" height="30" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path class="arch-body" d="M6 42V22C6 11 14 4 24 4C34 4 42 11 42 22V42H33V22C33 16 29 13 24 13C19 13 15 16 15 22V42H6Z"/>
+          <path class="arch-key" d="M20 4H28L26 12H22L20 4Z"/>
+        </svg>
+        <span class="brand-word">Batu Kunci</span>
+      </button>
+      <nav class="desktop-topnav" aria-label="Navigasi utama">
+        <button class="side-nav-item active" data-nav="home" onclick="showView('home')"><span>Home</span></button>
+        <button class="side-nav-item" data-nav="upload" onclick="showView('upload')"><span>Projects</span></button>
+        <button class="side-nav-item" data-nav="gallery" onclick="showView('gallery')"><span>Gallery</span></button>
+        <button class="side-nav-item" data-nav="chat" onclick="showView('chat')"><span>Community</span></button>
+        <button class="side-nav-item" data-nav="schedule" onclick="showView('schedule')"><span>Schedule</span></button>
+        <button class="side-nav-item" data-nav="ai" onclick="openBatuKunciAI()"><span>AI Studio</span><i data-lucide="sparkles"></i></button>
+        <button class="side-nav-item" data-nav="settings" onclick="showView('settings')"><span>Settings</span></button>
+      </nav>
+      <div class="topbar-actions">
+        <button type="button" class="icon-btn notification-btn" onclick="toggleNotifications()" aria-label="Notifikasi"><span id="notification-bell">♢</span><span id="notification-count" class="notification-count hidden">0</span></button>
+        <button type="button" class="icon-btn theme-toggle" onclick="toggleTheme()" aria-label="Ganti tema">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/></svg>
+        </button>
+        <div class="menu-wrap">
+          <button type="button" class="icon-btn menu-btn" id="menu-btn" onclick="toggleMenu()" aria-label="Buka menu" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+          <div class="menu-dropdown hidden" id="dropdown-menu">
+            <button class="menu-item" onclick="showView('settings')"><svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3.2"/><path d="M5.5 20c.7-3.4 2.9-5.2 6.5-5.2s5.8 1.8 6.5 5.2"/><path d="M18.5 4.8l.8.8"/></svg><span>Profil & Settings</span></button>
+            <button class="menu-item" onclick="showView('upload')"><svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4"/><path d="M7.5 8.5 12 4l4.5 4.5"/><path d="M5 13.5v5h14v-5"/></svg><span>Upload Project</span></button>
+            <button class="menu-item" onclick="showView('gallery')"><svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4" width="17" height="16" rx="2"/><circle cx="8.5" cy="9" r="1.4"/><path d="m5.5 17 4.4-4.2 3.2 3 2.1-2 3.3 3.2"/></svg><span>Gallery</span></button>
+            <button class="menu-item" onclick="showView('chat')"><svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6.5h14v9H10l-5 4v-4H5z"/><path d="M8 10h8M8 13h5"/></svg><span>Chat Tim</span></button>
+            <button class="menu-item" onclick="showView('schedule')"><svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4m8-4v4M3 9h18M8 13h3m-3 4h3"/></svg><span>Edit Jadwal</span></button>
+            <button class="menu-item" onclick="openBatuKunciAI()"><svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 1.8 6.2L20 10l-6.2 1.8L12 18l-1.8-6.2L4 10l6.2-1.8L12 2Z"/><path d="m19 15 .9 2.1L22 18l-2.1.9L19 21l-.9-2.1L16 18l2.1-.9L19 15Z"/></svg><span>Chat AI</span></button>
+            <button class="menu-item" onclick="openViewMode()"><svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 13.8 14 9.9"/><path d="M8.1 16.8H6.4a3.6 3.6 0 0 1 0-7.2h3"/><path d="M15.9 7.2h1.7a3.6 3.6 0 0 1 0 7.2h-3"/></svg><span>Web View</span></button>
+            <button class="menu-item menu-item-danger" onclick="doLogout()"><svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 4H5.5v16H10"/><path d="M14 8l4 4-4 4"/><path d="M8 12h10"/></svg><span>Keluar</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- HOME ---------- -->
+    <section id="view-home" class="page">
+      <section class="labs-hero" aria-label="Batu Kunci workspace">
+        <div class="labs-hero-copy">
+          <div class="labs-eyebrow"><span class="labs-live-dot"></span> CREATIVE WORKSPACE · 26.2</div>
+          <p class="labs-greeting" id="home-greeting">Halo, teman kreatif.</p>
+          <h1 class="labs-hero-title">Ruang ide jadi<br><span>karya nyata.</span></h1>
+          <p class="labs-hero-desc">Rencanakan project, temukan inspirasi, dan kolaborasi bareng tim. Semua proses kreatif ada di satu tempat.</p>
+          <div class="labs-hero-actions">
+            <button class="labs-cta-primary" onclick="showView('upload')">Mulai project <i data-lucide="arrow-up-right"></i></button>
+            <button class="labs-cta-secondary" onclick="openBatuKunciAI()"><i data-lucide="sparkles"></i> Jelajahi AI Studio</button>
+          </div>
+          <div class="labs-hero-note"><span class="labs-note-avatars"><b>M</b><b>H</b><b>A</b></span><span>Kolaborasi tim Media Kreatif 26.2</span></div>
+        </div>
+        <div class="labs-hero-art" aria-hidden="true">
+          <div class="labs-art-glow"></div>
+          <div class="labs-art-card labs-art-card-main"><div class="labs-art-card-top"><span>CREATIVE BOARD</span><i data-lucide="arrow-up-right"></i></div><div class="labs-art-shapes"><b></b><b></b><b></b><b></b></div><div class="labs-art-card-bottom"><span>Ideas in motion</span><strong>26.2</strong></div></div>
+          <div class="labs-art-float labs-art-float-a"><i data-lucide="image"></i><span>Visual stories</span></div>
+          <div class="labs-art-float labs-art-float-b"><i data-lucide="message-circle"></i><span>Team up</span></div>
+          <div class="labs-art-spark labs-art-spark-a">✳</div><div class="labs-art-spark labs-art-spark-b">✦</div>
+        </div>
+      </section>
+
+      <section class="labs-discover" aria-labelledby="workspace-discover-title">
+        <div class="labs-section-heading">
+          <div><span class="labs-section-kicker">YOUR CREATIVE TOOLKIT</span><h2 id="workspace-discover-title">Explore your workspace</h2><p>Pilih ruang kerja yang mau lo buka hari ini.</p></div>
+          <span class="labs-section-index">01 — 05</span>
+        </div>
+        <div class="labs-filter-row" role="group" aria-label="Filter fitur workspace">
+          <button class="is-active" data-labs-filter="all" onclick="filterWorkspace('all',this)">Semua</button>
+          <button data-labs-filter="create" onclick="filterWorkspace('create',this)">Create</button>
+          <button data-labs-filter="collaborate" onclick="filterWorkspace('collaborate',this)">Collaborate</button>
+          <button data-labs-filter="organize" onclick="filterWorkspace('organize',this)">Organize</button>
+        </div>
+        <div class="labs-feature-grid" id="workspace-feature-grid">
+          <button class="labs-feature-card labs-feature-project" data-labs-category="create" onclick="showView('upload')"><span class="labs-feature-art"><span class="feature-project-sheet"><i data-lucide="layout-template"></i><b></b><b></b><b></b></span><span class="feature-art-orbit"></span></span><span class="labs-feature-copy"><span class="labs-feature-kicker">01 · CREATE</span><strong>Project Studio</strong><small>Bangun brief, tetapkan PIC, dan pantau progress project.</small><em>Open workspace <i data-lucide="arrow-up-right"></i></em></span></button>
+          <button class="labs-feature-card labs-feature-gallery" data-labs-category="create" onclick="showView('gallery')"><span class="labs-feature-art"><span class="feature-gallery-frame"><b></b><i></i><span></span></span><span class="feature-gallery-orb"></span></span><span class="labs-feature-copy"><span class="labs-feature-kicker">02 · CREATE</span><strong>Creative Gallery</strong><small>Kumpulkan hasil akhir dan dokumentasi visual tim.</small><em>Explore gallery <i data-lucide="arrow-up-right"></i></em></span></button>
+          <button class="labs-feature-card labs-feature-community" data-labs-category="collaborate" onclick="showView('chat')"><span class="labs-feature-art"><span class="feature-chat-bubble feature-chat-one"></span><span class="feature-chat-bubble feature-chat-two"></span><span class="feature-chat-bubble feature-chat-three"></span></span><span class="labs-feature-copy"><span class="labs-feature-kicker">03 · COLLABORATE</span><strong>Team Community</strong><small>Diskusi project, grup, dan percakapan personal.</small><em>Join conversation <i data-lucide="arrow-up-right"></i></em></span></button>
+          <button class="labs-feature-card labs-feature-ai" data-labs-category="create" onclick="openBatuKunciAI()"><span class="labs-feature-art"><span class="feature-ai-orbit"><i data-lucide="sparkles"></i></span><b class="feature-ai-star">✳</b><b class="feature-ai-dot"></b></span><span class="labs-feature-copy"><span class="labs-feature-kicker">04 · EXPERIMENT</span><strong>AI Studio</strong><small>Brainstorm ide, poles brief, dan eksplorasi konsep.</small><em>Try AI Studio <i data-lucide="arrow-up-right"></i></em></span></button>
+          <button class="labs-feature-card labs-feature-schedule" data-labs-category="organize" onclick="showView('schedule')"><span class="labs-feature-art"><span class="feature-calendar"><b>WEEKLY ROTATION</b><strong>26.2</strong><span><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></span><span class="feature-calendar-ring"></span></span><span class="labs-feature-copy"><span class="labs-feature-kicker">05 · ORGANIZE</span><strong>Schedule Lab</strong><small>Atur rotasi pengurus dan jaga ritme kolaborasi.</small><em>View schedule <i data-lucide="arrow-up-right"></i></em></span></button>
+        </div>
+      </section>
+
+      <section id="weekly-duty-board" class="weekly-duty-board" aria-label="Jadwal pengurus minggu ini">
+        <div class="weekly-duty-head">
+          <div><span class="section-eyebrow">ROTASI PENGURUS</span><h2>Jadwal Minggu Ini</h2><p id="weekly-duty-period" class="page-desc">Memuat periode tugas…</p></div>
+          <span id="weekly-duty-week" class="week-number-pill">—</span>
+        </div>
+        <div id="weekly-duty-cards" class="weekly-duty-grid"></div>
+        <p class="weekly-duty-note" id="weekly-duty-note">Jadwal mengikuti rotasi mingguan yang sudah disepakati.</p>
+      </section>
+
+      <div class="workspace-stats" aria-label="Ringkasan workspace">
+        <div class="stat-card stat-project">
+          <div class="stat-top"><span class="stat-icon">◫</span><span class="stat-label">Proyek aktif</span></div>
+          <div class="stat-value" id="stat-active-projects">0</div>
+          <div class="stat-foot"><span class="stat-dot"></span><span>Masih berjalan</span></div>
+        </div>
+        <div class="stat-card stat-process">
+          <div class="stat-top"><span class="stat-icon">↗</span><span class="stat-label">Dalam proses</span></div>
+          <div class="stat-value" id="stat-process-projects">0</div>
+          <div class="stat-foot"><span class="stat-dot"></span><span>Sedang dikerjakan</span></div>
+        </div>
+        <div class="stat-card stat-album">
+          <div class="stat-top"><span class="stat-icon">▧</span><span class="stat-label">Album</span></div>
+          <div class="stat-value" id="stat-albums">0</div>
+          <div class="stat-foot"><span class="stat-dot"></span><span>Tersimpan di workspace</span></div>
+        </div>
+      </div>
+
+      <section class="insight-panel" aria-labelledby="project-insight-title">
+        <div class="insight-panel-head">
+          <div><span class="section-eyebrow">WORKSPACE INSIGHT</span><h2 id="project-insight-title">Komposisi project</h2><p class="page-desc">Ringkasan status seluruh project yang tercatat.</p></div>
+          <span class="insight-head-icon"><i data-lucide="chart-pie"></i></span>
+        </div>
+        <div class="insight-chart-wrap"><div class="insight-chart-canvas"><canvas id="project-status-chart" aria-label="Grafik status project" role="img"></canvas></div><div class="insight-chart-legend" id="project-status-legend"><p class="chart-fallback">Grafik akan tampil setelah data project dan Chart.js selesai dimuat.</p></div></div>
+      </section>
+
+      <div class="tabs">
+        <div class="tab-indicator" id="tab-indicator"></div>
+        <button class="tab active" id="tab-belum" onclick="setTab('belum')">Belum Selesai</button>
+        <button class="tab" id="tab-arsip" onclick="setTab('arsip')">Arsip</button>
+      </div>
+      <div class="project-toolbar">
+        <div class="project-toolbar-copy">
+          <strong>Daftar Project</strong>
+          <small>Default: deadline terlama dulu</small>
+        </div>
+        <label class="project-sort-control" for="project-sort">
+          <span>Urutkan</span>
+          <select id="project-sort" onchange="setProjectSort(this.value)">
+            <option value="oldest">Tanggal terlama</option>
+            <option value="newest">Tanggal terbaru</option>
+          </select>
+        </label>
+      </div>
+      <div id="project-list"></div>
+    </section>
+
+    <!-- ---------- UPLOAD PROJECT ---------- -->
+    <section id="view-upload" class="page hidden">
+      <div class="page-head">
+        <div><h1 class="page-title">Upload Project</h1><p class="page-desc">Isi detailnya, nanti otomatis nongol di Home.</p></div>
+        <button type="button" class="page-home-btn" onclick="showView('home')"><span>⌂</span> Home</button>
+      </div>
+
+      <div class="field">
+        <label for="upload-nama">Nama Project</label>
+        <input type="text" id="upload-nama" placeholder="Mis. Poster Open Recruitment">
+      </div>
+      <div class="field">
+        <label for="upload-deadline">Deadline</label>
+        <input type="date" id="upload-deadline">
+      </div>
+      <div class="field">
+        <label for="upload-brief">Brief</label>
+        <textarea id="upload-brief" placeholder="Arahan singkat buat yang ngerjain..."></textarea>
+      </div>
+
+      <div class="field">
+        <label for="upload-tag">Tag Project</label>
+        <div class="tag-field-row">
+          <input type="text" id="upload-tag" placeholder="Mis. desain, publikasi, urgent" maxlength="40">
+          <label class="tag-required-toggle"><input type="checkbox" id="upload-tag-required"> <span>Wajib</span></label>
+        </div>
+        <p class="page-desc" style="margin:6px 0 0;">Kosongkan kalau opsional. Centang <b>Wajib</b> kalau project ini harus punya tag.</p>
+      </div>
+
+      <div class="field">
+        <label>Assign ke</label>
+        <div class="chip-select" id="assign-chips"></div>
+      </div>
+
+      <div class="field">
+        <label>Status</label>
+        <div class="status-select" id="status-select"></div>
+      </div>
+
+      <div class="field">
+        <label>Aset</label>
+        <p class="page-desc" style="margin:-4px 0 10px;">Upload file-nya ke Google Drive dulu (klik "Buka Drive" di bawah, set "Anyone with the link"), baru paste linknya — preview-nya langsung nongol otomatis.</p>
+        <div id="aset-rows"></div>
+        <button type="button" class="btn btn-ghost btn-sm" onclick="addAsetRow()">＋ Tambah Aset</button>
+      </div>
+
+      <div style="display:flex; gap:10px; margin-top:24px;">
+        <button class="btn btn-ghost" onclick="showView('home')">Batal</button>
+        <button class="btn btn-primary" onclick="submitUpload()">Simpan Project</button>
+      </div>
+    </section>
+
+    <!-- ---------- EDIT JADWAL ---------- -->
+    <section id="view-schedule" class="page hidden">
+      <div class="page-head">
+        <div><h1 class="page-title">Edit Jadwal</h1><p class="page-desc">Atur daftar anggota, PIC Media, dan awal siklus rotasi pengurus.</p></div>
+        <button type="button" class="page-home-btn" onclick="showView('home')"><span>⌂</span> Home</button>
+      </div>
+      <div class="duty-editor-intro"><strong>Jadwal pengurus 26.2</strong><p>Media dan Humas berjalan bersama dalam rotasi 4 minggu. Manajerial berjalan sendiri dalam rotasi 3 minggu. Semua anggota aktif dapat mengedit jadwal ini.</p></div>
+      <section class="calendar-workspace-card" aria-labelledby="duty-calendar-title">
+        <div class="calendar-card-head"><div><span class="section-eyebrow">SCHEDULE CENTER</span><h2 id="duty-calendar-title">Kalender rotasi pengurus</h2><p class="page-desc">Pilih tampilan bulan, minggu, atau agenda untuk melihat rotasi setiap divisi.</p></div><span class="calendar-card-icon"><i data-lucide="calendar-check-2"></i></span></div>
+        <div id="duty-calendar" class="duty-calendar" aria-label="Kalender rotasi pengurus"><p class="calendar-fallback">Memuat kalender rotasi…</p></div>
+        <div class="calendar-legend"><span><i class="calendar-dot media"></i>Media</span><span><i class="calendar-dot humas"></i>Humas</span><span><i class="calendar-dot managerial"></i>Manajerial</span></div>
+      </section>
+      <div id="duty-editor-content" class="duty-editor-content"></div>
+    </section>
+
+    <!-- ---------- GALLERY ---------- -->
+    <section id="view-gallery" class="page hidden">
+      <div class="page-head">
+        <div><h1 class="page-title">Gallery</h1><p class="page-desc">Kumpulan hasil desain final tim — kepisah dari file kerja di Aset.</p></div>
+        <button type="button" class="page-home-btn" onclick="showView('home')"><span>⌂</span> Home</button>
+      </div>
+
+      <div class="chip-select" id="album-chips" style="margin-bottom:16px;"></div>
+
+      <section class="gallery-featured hidden" id="gallery-featured-section" aria-label="Pilihan Gallery">
+        <div class="gallery-featured-head"><div><span class="section-eyebrow">CREATIVE SHOWCASE</span><h2>Yang terbaru di Gallery</h2></div><div class="swiper-controls"><button type="button" class="swiper-nav-btn" id="gallery-swiper-prev" aria-label="Sebelumnya"><i data-lucide="arrow-left"></i></button><button type="button" class="swiper-nav-btn" id="gallery-swiper-next" aria-label="Berikutnya"><i data-lucide="arrow-right"></i></button></div></div>
+        <div class="swiper gallery-featured-swiper" id="gallery-featured-swiper"><div class="swiper-wrapper" id="gallery-featured-slides"></div></div>
+      </section>
+      <div class="gallery-grid" id="gallery-grid"></div>
+
+      <div class="keystone-divider"><span>Tambah ke Gallery</span></div>
+      <div class="field">
+        <label for="gallery-label">Judul</label>
+        <input type="text" id="gallery-label" placeholder="Mis. Logo IG Angkatan 26.2">
+      </div>
+      <div class="field">
+        <label for="gallery-album">Masuk Album</label>
+        <select id="gallery-album"></select>
+      </div>
+      <div class="field">
+        <label for="gallery-akun">Disimpen di akun mana?</label>
+        <select id="gallery-akun"></select>
+      </div>
+      <button type="button" class="btn btn-primary btn-sm aset-upload-btn" id="gallery-upload-btn" onclick="startGalleryUpload()">⬆ Upload Langsung ke Drive</button>
+      <p class="aset-or">atau tempel link manual</p>
+      <div class="field">
+        <label for="gallery-link">Link Google Drive</label>
+        <input type="text" id="gallery-link" placeholder="Link file (Anyone with the link)" oninput="previewGalleryLink()">
+      </div>
+      <div class="aset-link-actions">
+        <button type="button" class="btn btn-ghost btn-sm" onclick="openGalleryDriveFolder()">Buka Drive ↗</button>
+        <button type="button" class="btn btn-ghost btn-sm" onclick="pasteGalleryFromClipboard()">📋 Tempel Link</button>
+      </div>
+      <div id="gallery-link-preview"></div>
+      <button class="btn btn-primary" style="margin-top:10px;" onclick="addGalleryItem()">Tambah ke Gallery</button>
+    </section>
+
+    <!-- ---------- CHAT ---------- -->
+    <section id="view-chat" class="page hidden">
+      <div class="page-head">
+        <div><h1 class="page-title">Chat</h1><p class="page-desc">Komentar project, grup tim, dan japri dalam satu tempat.</p></div>
+        <button type="button" class="page-home-btn" onclick="showView('home')"><span>⌂</span> Home</button>
+      </div>
+
+      <div class="chat-tabs">
+        <button class="chat-tab active" data-chat-tab="comments" onclick="setChatTab('comments')">Komentar Project</button>
+        <button class="chat-tab" data-chat-tab="groups" onclick="setChatTab('groups')">Grup Chat</button>
+        <button class="chat-tab" data-chat-tab="dm" onclick="setChatTab('dm')">Japri</button>
+      </div>
+
+      <div id="chat-comments-panel" class="chat-panel">
+        <div class="chat-toolbar"><label class="chat-project-label" for="comment-project-select">Project yang dikomentari</label><select id="comment-project-select" class="chat-project-select" onchange="selectCommentProject(this.value)"></select></div>
+        <div id="project-comments" class="chat-messages"></div>
+        <form class="chat-composer" onsubmit="sendProjectComment(event)"><input id="project-comment-input" placeholder="Tulis komentar untuk project ini..." maxlength="500"><button class="btn btn-primary btn-sm">Kirim</button></form>
+      </div>
+
+      <div id="chat-groups-panel" class="chat-panel hidden">
+        <div class="chat-layout">
+          <aside class="chat-list" id="group-list"></aside>
+          <div class="chat-room">
+            <div class="chat-room-head"><div><strong id="group-chat-title">Pilih grup</strong><small id="group-chat-admin-label" class="group-admin-label"></small></div><div class="chat-room-actions"><button id="group-leave-btn" class="btn btn-ghost btn-sm hidden" onclick="leaveSelectedGroup()">Keluar</button><button id="group-edit-btn" class="btn btn-ghost btn-sm hidden" onclick="openGroupEditor(selectedGroupId)">✎ Edit Grup</button><button class="btn btn-ghost btn-sm" onclick="openCreateGroup()">＋ Grup</button></div></div>
+            <div id="group-messages" class="chat-messages"></div>
+            <form class="chat-composer chat-group-composer" onsubmit="sendGroupMessage(event)"><div class="chat-mention-picker hidden" id="group-mention-picker"></div><div class="chat-attach-actions"><button type="button" class="chat-attach-btn" title="Foto / Video" onclick="document.getElementById('group-media-input').click()">＋</button><button type="button" class="chat-attach-btn voice" title="Rekam VN" onclick="toggleVoiceRecording('group')">●</button><input id="group-media-input" class="chat-file-input" type="file" accept="image/*,video/*" onchange="handleChatMediaSelected(this,'group')"></div><input id="group-message-input" autocomplete="off" placeholder="Tulis pesan ke grup... gunakan @ untuk tag" maxlength="1000"><button id="group-send-btn" class="btn btn-primary btn-sm">Kirim</button></form>
+          </div>
+        </div>
+      </div>
+
+      <div id="chat-dm-panel" class="chat-panel hidden">
+        <div class="chat-layout">
+          <aside class="chat-list" id="dm-list"></aside>
+          <div class="chat-room">
+            <div class="chat-room-head"><strong id="dm-chat-title">Pilih anggota</strong></div>
+            <div id="dm-messages" class="chat-messages"></div>
+            <form class="chat-composer" onsubmit="sendDirectMessage(event)"><div class="chat-attach-actions"><button type="button" class="chat-attach-btn" title="Foto / Video" onclick="document.getElementById('dm-media-input').click()">＋</button><button type="button" class="chat-attach-btn voice" title="Rekam VN" onclick="toggleVoiceRecording('dm')">●</button><input id="dm-media-input" class="chat-file-input" type="file" accept="image/*,video/*" onchange="handleChatMediaSelected(this,'dm')"></div><input id="dm-message-input" placeholder="Tulis pesan pribadi..." maxlength="1000"><button id="dm-send-btn" class="btn btn-primary btn-sm">Kirim</button></form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- CHAT AI ---------- -->
+    <section id="view-ai" class="page hidden ai-workspace-page">
+      <div class="page-head">
+        <div><h1 class="page-title">Chat AI</h1><p class="page-desc">Asisten ide konten, caption, brief desain, dan brainstorming Tim Media Kreatif.</p></div>
+        <button type="button" class="page-home-btn" onclick="showView('home')"><span>⌂</span> Home</button>
+      </div>
+      <section class="ai-panel ai-workspace-panel" role="region" aria-labelledby="ai-title">
+        <header class="ai-header">
+          <div><div class="ai-eyebrow"><span class="ai-status-dot"></span> BATU KUNCI AI</div><h2 id="ai-title">Asisten Media Kreatif</h2><p>Bantu bikin caption, konsep, brief, atau mikirin ide konten.</p></div>
+        </header>
+        <div class="ai-suggestions">
+          <button type="button" onclick="useAISuggestion('Bantu buatkan caption Instagram untuk project ini dengan gaya profesional tapi tetap santai.')">Caption</button>
+          <button type="button" onclick="useAISuggestion('Beri 5 ide konten Media Kreatif yang realistis dibuat oleh tim mahasiswa.')">Ide konten</button>
+          <button type="button" onclick="useAISuggestion('Bantu rapikan brief desain berikut agar jelas dan mudah dikerjakan tim.')">Rapikan brief</button>
+        </div>
+        <div id="ai-messages" class="ai-messages" aria-live="polite"><div class="ai-message ai-message-bot">Halo. Gue Batu Kunci AI. Kasih brief atau pertanyaan lo, nanti gue bantu pecah jadi sesuatu yang masuk akal.</div></div>
+        <div id="ai-error" class="ai-error hidden"></div>
+        <form class="ai-composer" onsubmit="sendBatuKunciAI(event)"><textarea id="ai-input" rows="1" placeholder="Tulis pesan..." autocomplete="off"></textarea><button id="ai-send" type="submit" aria-label="Kirim">↑</button></form>
+        <div class="ai-footnote">Gemini via Firebase AI Logic · Jangan masukkan password atau data sensitif.</div>
+      </section>
+    </section>
+
+    <!-- ---------- SETTINGS ---------- -->
+    <section id="view-settings" class="page hidden">
+      <div class="page-head">
+        <div><h1 class="page-title">Settings</h1><p class="page-desc">Profil, akun, dan pengaturan workspace.</p></div>
+        <button type="button" class="page-home-btn" onclick="showView('home')"><span>⌂</span> Home</button>
+      </div>
+
+      <div class="settings-section">
+        <h3>Profil</h3>
+        <div class="profile-head">
+          <div id="profile-avatar-wrap"></div>
+          <div>
+            <strong id="profile-name-display"></strong>
+            <button type="button" class="btn btn-ghost btn-sm aset-upload-btn" id="profile-photo-btn" style="margin-top:6px;" onclick="startProfilePhotoUpload()">📷 Ganti Foto</button>
+          </div>
+        </div>
+        <div class="field">
+          <label for="profile-name-input">Nama</label>
+          <input type="text" id="profile-name-input">
+        </div>
+        <div class="field">
+          <label for="profile-bio-input">Bio</label>
+          <textarea id="profile-bio-input" placeholder="Opsional..."></textarea>
+        </div>
+        <div class="field">
+          <label>Warna Latar (mode terang)</label>
+          <div class="bg-swatches" id="bg-swatches"></div>
+        </div>
+        <div class="field">
+          <label>Tema Workspace</label>
+          <p class="theme-help">Tema ini mengubah tampilan seluruh Batu Kunci, termasuk Mode Gelap.</p>
+          <div class="theme-picker" id="theme-picker"></div>
+        </div>
+        <div class="field">
+          <label for="profile-music">Musik Latar (opsional)</label>
+          <input type="text" id="profile-music" placeholder="Link Google Drive (Anyone with the link)">
+        </div>
+        <div class="aset-link-actions">
+          <a href="https://drive.google.com" target="_blank" rel="noopener" class="btn btn-ghost btn-sm">Buka Drive ↗</a>
+          <button type="button" class="btn btn-ghost btn-sm" onclick="pasteMusicFromClipboard()">📋 Tempel Link</button>
+        </div>
+        <button class="btn btn-ghost" style="margin-top:10px;" onclick="saveProfile()">Simpan Profil</button>
+      </div>
+
+      <section class="settings-section member-management-section hidden" id="member-management-section">
+        <div class="section-head-row"><div><h3>Manajemen Anggota</h3><p class="page-desc">Kelola anggota aktif, nonaktif, dan profil anggota baru.</p></div><span class="section-admin-pill">ADMIN</span></div>
+        <div class="member-admin-summary" id="member-admin-summary"></div>
+        <div class="member-create-form">
+          <strong>Tambah anggota dan buat akun</strong>
+          <div class="field"><label for="member-new-name">Nama lengkap</label><input id="member-new-name" type="text" maxlength="90" placeholder="Nama anggota" oninput="updateMemberAccountPreview()"></div>
+          <div class="field"><label for="member-new-division">Divisi</label><select id="member-new-division"><option>Koordinator</option><option>Sekretaris</option><option>Bendahara</option><option>Manajerial</option><option>Humas</option><option>Media Kreatif</option><option>Event Kreatif</option><option>Developer</option></select></div>
+          <div class="field"><label for="member-new-position">Jabatan</label><input id="member-new-position" type="text" maxlength="60" placeholder="Anggota"></div>
+          <div class="field"><label for="member-new-id">ID akun (otomatis)</label><input id="member-new-id" type="text" readonly placeholder="nama-mdc.26.2"></div>
+          <div class="field"><label for="member-new-email">Email Firebase (otomatis)</label><input id="member-new-email" type="email" readonly placeholder="nama-mdc.26.2@batukunci.app"></div>
+          <div class="field"><label for="member-new-password">Password sementara</label><input id="member-new-password" type="password" minlength="6" autocomplete="new-password" placeholder="Minimal 6 karakter"></div>
+          <button type="button" class="btn btn-primary btn-sm" id="member-create-btn" onclick="addMemberProfile()">＋ Tambah Anggota & Buat Akun</button>
+          <p class="member-admin-note">Akun Firebase dan profil anggota dibuat otomatis. Password hanya dikirim ke proses pembuatan akun, tidak disimpan di Firestore. Berikan password sementara kepada anggota dan minta mereka menggantinya di Settings.</p>
+        </div>
+        <p id="workspace-admin-owner-note" class="member-admin-note hidden">Kontrol penetapan admin hanya terlihat oleh pemilik workspace. Admin lain tidak dapat menambah atau mencabut admin.</p>
+        <div class="member-admin-list-head"><strong>Daftar anggota</strong><input id="member-admin-search" type="search" placeholder="Cari anggota…" oninput="renderMemberManagement()"></div>
+        <div id="member-admin-list" class="member-admin-list"></div>
+      </section>
+
+      <div class="settings-section notification-settings-section">
+        <h3>Notifikasi</h3>
+        <div class="notification-setting-row">
+          <div>
+            <strong>Notifikasi Batu Kunci</strong>
+            <p class="page-desc">Reminder deadline, komentar, grup, dan Japri. Default-nya aktif untuk anggota baru.</p>
+          </div>
+          <label class="switch"><input type="checkbox" id="notification-setting-toggle" onchange="setNotificationPreference(this.checked)"><span></span></label>
+        </div>
+        <div class="notification-permission-box" id="notification-permission-box">
+          <div><strong id="notification-permission-title">Status: belum diizinkan</strong><small id="notification-permission-text">Chrome akan meminta izin saat Batu Kunci pertama kali dibuka.</small></div>
+          <button type="button" class="btn btn-ghost btn-sm" onclick="requestNotificationPermission(true)">Izinkan Notifikasi</button>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <h3>Ganti Password</h3>
+        <div class="field">
+          <label for="profile-newpass">Password Baru</label>
+          <input type="password" id="profile-newpass">
+        </div>
+        <div class="field">
+          <label for="profile-newpass-confirm">Konfirmasi Password</label>
+          <input type="password" id="profile-newpass-confirm">
+        </div>
+        <button class="btn btn-ghost" onclick="changePassword()">Ganti Password</button>
+      </div>
+
+      <div class="settings-section">
+        <h3>Daftar Akun Drive</h3>
+        <p class="page-desc" style="margin-bottom:12px;">Pemakaian servermdc2 untuk media chat dihitung otomatis. Akun Drive lain masih bisa diatur manual.</p>
+        <div id="drive-list"></div>
+      </div>
+
+      <button class="btn btn-danger" onclick="doLogout()">Keluar</button>
+    </section>
+
+  </div>
+</div>
+
+
+<div id="group-editor-modal" class="group-editor-modal hidden" aria-hidden="true">
+  <div class="group-editor-backdrop" onclick="closeGroupEditor()"></div>
+  <section class="group-editor-panel" role="dialog" aria-modal="true" aria-labelledby="group-editor-title">
+    <header class="group-editor-head">
+      <div><span class="group-editor-eyebrow">GRUP CHAT</span><h2 id="group-editor-title">Edit Grup</h2><p>Atur nama, anggota, dan admin. Hanya admin grup yang bisa mengubah bagian ini.</p></div>
+      <button class="group-editor-close" onclick="closeGroupEditor()" aria-label="Tutup">×</button>
+    </header>
+    <div class="field group-editor-name-field"><label for="group-editor-name">Nama grup</label><input id="group-editor-name" type="text" maxlength="80" placeholder="Mis. Tim Media Kreatif"></div>
+    <div class="group-picker-head"><div><strong>Anggota grup</strong><small>Pilih langsung dari daftar, seperti grup chat biasa.</small></div><span id="group-picker-count"></span></div>
+    <div id="group-member-picker" class="group-member-picker"></div>
+    <div class="group-editor-note">Admin dapat menambah/menghapus anggota dan menetapkan admin lain. Minimal satu admin harus tetap ada.</div>
+    <footer class="group-editor-foot"><button class="btn btn-danger hidden" id="group-delete-btn" onclick="deleteSelectedGroup()">Hapus Grup</button><span></span><button class="btn btn-ghost" onclick="closeGroupEditor()">Batal</button><button class="btn btn-primary" onclick="saveGroupEditor()">Simpan</button></footer>
+  </section>
+</div>
+
+<div id="notification-panel" class="notification-panel hidden"><div class="notification-head"><strong>Notifikasi</strong><button onclick="markNotificationsRead()">Tandai dibaca</button></div><div id="notification-list"></div></div>
+<input type="file" id="drive-upload-input" class="hidden" onchange="handleDriveFilePicked(event)">
+<div class="music-panel hidden" id="music-panel">
+  <div class="music-player hidden" id="music-player-custom">
+    <button class="music-play-btn" id="music-play-btn" onclick="toggleMusicPlay()">▶</button>
+    <div class="music-track-info">
+      <div class="music-track-name">🎵 Musik Latar</div>
+      <div class="music-bar"><div class="music-bar-fill" id="music-bar-fill"></div></div>
+    </div>
+  </div>
+  <iframe id="music-frame" class="hidden" src="" allow="autoplay" loading="lazy"></iframe>
+</div>
+<audio id="music-audio" loop></audio>
+<button id="music-toggle" class="music-toggle hidden" onclick="toggleMusicPanel()" aria-label="Musik latar">🎵</button>
+</div>
+<script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-storage-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.19.0/firebase-messaging-compat.js"></script>
+<!-- Batu Kunci UI toolkit: pinned versions, progressive enhancement only. -->
+<script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.15/locales-all.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11.2.10/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.15.10/dist/sweetalert2.all.min.js"></script>
+<script src="data.js"></script>
+<script src="app.js?v=31"></script>
+<script src="ui-enhancements.js?v=32"></script>
+<script src="motion-enhancements.js?v=33" defer></script>
+<script type="module" src="ai.js?v=30.1"></script>
+</body>
+</html>
