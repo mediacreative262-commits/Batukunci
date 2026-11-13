@@ -1,0 +1,9 @@
+{
+  "firestore": { "rules": "firestore.rules" },
+  "storage": { "rules": "storage.rules" },
+  "functions": { "source": "functions" },
+  "hosting": {
+    "public": ".",
+    "ignore": ["firebase.json", "apps-script-code.gs", "BACKLOG-PENGEMBANGAN.md", "SETUP-BATU-KUNCI.md", "functions/**", "**/.*", "**/node_modules/**"]
+  }
+}
