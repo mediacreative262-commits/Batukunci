@@ -1,0 +1,24 @@
+/* Batu Kunci motion polish · progressive enhancement */
+:root{--bk-motion-fast:180ms;--bk-motion-base:420ms;--bk-motion-slow:680ms;--bk-motion-ease:cubic-bezier(.22,.72,.18,1)}
+html{scroll-behavior:smooth;scroll-padding-top:92px}
+@media(min-width:900px){html{scroll-padding-top:108px}}
+/* Page changes */
+.page.view-enter{animation:bkPageEnter .48s var(--bk-motion-ease) both;transform-origin:50% 12%}
+@keyframes bkPageEnter{from{opacity:0;transform:translate3d(0,13px,0) scale(.996);filter:blur(2px)}to{opacity:1;transform:translate3d(0,0,0) scale(1);filter:blur(0)}}
+/* Scroll reveal: JS adds the class only when IntersectionObserver exists. */
+.bk-reveal{opacity:0;transform:translate3d(var(--bk-reveal-x,0),var(--bk-reveal-y,20px),0);filter:blur(3px);transition:opacity var(--bk-motion-slow) var(--bk-motion-ease),transform var(--bk-motion-slow) var(--bk-motion-ease),filter var(--bk-motion-slow) var(--bk-motion-ease);transition-delay:var(--bk-reveal-delay,0ms);will-change:opacity,transform,filter}
+.bk-reveal.bk-visible{opacity:1;transform:translate3d(0,0,0);filter:blur(0);will-change:auto}
+.bk-reveal[data-bk-direction="left"]{--bk-reveal-x:-24px;--bk-reveal-y:8px}
+.bk-reveal[data-bk-direction="right"]{--bk-reveal-x:24px;--bk-reveal-y:8px}
+.bk-reveal[data-bk-direction="up"]{--bk-reveal-y:22px}
+/* Subtle interaction polish, no exaggerated bouncing */
+@media(hover:hover) and (pointer:fine){
+ .labs-feature-card,.view-project-card,.view-stat-card,.gallery-card,.album-card,.project-card,.stat-card,.settings-section,.calendar-workspace-card{transition:transform .32s var(--bk-motion-ease),box-shadow .32s var(--bk-motion-ease),border-color .32s ease}
+ .labs-feature-card:hover,.view-project-card:hover,.gallery-card:hover,.album-card:hover{transform:translateY(-4px)}
+ .view-stat-card:hover,.stat-card:hover{transform:translateY(-2px)}
+}
+button,a,input,select,textarea{ -webkit-tap-highlight-color:transparent }
+button:not(:disabled),a{transition:background-color .2s ease,border-color .2s ease,color .2s ease,box-shadow .2s ease}
+:focus-visible{outline:3px solid color-mix(in srgb,var(--bk-primary,#5368a7) 55%,transparent);outline-offset:3px}
+/* Respect reduced motion and avoid trapping users in hidden content. */
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.page.view-enter{animation:none}.bk-reveal,.bk-reveal.bk-visible{opacity:1;transform:none;filter:none;transition:none;will-change:auto}*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}}
